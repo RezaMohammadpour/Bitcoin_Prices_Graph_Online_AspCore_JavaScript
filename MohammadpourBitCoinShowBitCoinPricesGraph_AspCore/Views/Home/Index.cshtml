@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+<head>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-2.8.3.min.js"></script>
+
+    <style>
+        .chart {
+            height: 400px
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Developed by:  Reza.Mohammadpour@gmail.com / +98-9177117407</h2>
+        <h1>نمایش گراف قیمتی بیت کویین</h1>
+
+        <div class="container bg-warning">
+            <div id="price_chart" class="chart">
+                Chart
+            </div>
+        </div>
+        <hr />
+    </div>
+    <script>
+        $(() => {
+            setInterval(() => {
+                $.get('/home/GetCurrencyGraphData', {}, value => {
+                    let graph = JSON.parse(value);
+                    Plotly.newPlot('price_chart', graph);
+                })
+            }, 1000)
+        })
+    </script>
+</body>
